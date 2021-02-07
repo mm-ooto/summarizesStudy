@@ -1,6 +1,7 @@
 package fiction
 
 import (
+	"errors"
 	"github.com/mm-ooto/summarizesStudy/fiction/fictCreeper/constC"
 	"log"
 )
@@ -10,8 +11,9 @@ type Fiction interface {
 }
 
 func NewFiction(source constC.PlatformSourceType) (f Fiction, err error) {
-	if !constC.CheckPlatformSourceInSlice(source){
-		log.Println("暂不支持该网站！")
+	if !constC.CheckPlatformSourceInSlice(source) {
+		err = errors.New("暂不支持该网站！")
+		return
 	}
 	switch source {
 	case constC.Paoshuzw:
@@ -22,7 +24,7 @@ func NewFiction(source constC.PlatformSourceType) (f Fiction, err error) {
 }
 
 //platformSourceType:平台来源;bookUrl:小说地址
-func FictionCreeper(platformSourceType constC.PlatformSourceType,bookUrl string)func()  {
+func FictionCreeper(platformSourceType constC.PlatformSourceType, bookUrl string) func() {
 	fic, err := NewFiction(platformSourceType)
 	if err != nil {
 		log.Printf("newFiction error:%s\n", err.Error())

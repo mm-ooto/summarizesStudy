@@ -34,8 +34,7 @@ func init() {
 }
 
 func main() {
-	fmt.Println(*platformSourceType,*bookUrl)
-	fun := fiction.FictionCreeper(constC.Paoshuzw, "http://www.paoshuzw.com/10/10489/")
+	fun := fiction.FictionCreeper(constC.PlatformSourceType(*platformSourceType), *bookUrl)
 	fun()
 	//crontab
 	cornTab := cron.New()

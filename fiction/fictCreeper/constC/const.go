@@ -1,10 +1,9 @@
-
 package constC
 
 type PlatformSourceType int //平台来源
 
 const (
-	Paoshuzw PlatformSourceType = iota+1 //新笔趣阁
+	Paoshuzw PlatformSourceType = iota + 1 //新笔趣阁
 )
 
 func platformSourceSlice() []PlatformSourceType {

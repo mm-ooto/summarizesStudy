@@ -145,8 +145,8 @@ func getChapterContent(chapterContentChan chan string, bookChapters []model.Book
 		url := fmt.Sprintf("http://www.paoshuzw.com%s", v.CharpterUrl)
 		doc, err := utils.GetDocument(url)
 		if err != nil {
-			fmt.Println("GetDocument error:", err.Error())
-			return
+			log.Printf("------------------getChapterContent GetDocument error:%s------------------", err.Error())
+			continue
 		}
 		content := doc.Find("#content").Text()
 		chapterContents = append(chapterContents, map[string]interface{}{
@@ -156,7 +156,7 @@ func getChapterContent(chapterContentChan chan string, bookChapters []model.Book
 	}
 	gdb := db.Model(&model.ChapterContent{}).Create(chapterContents)
 	if err := gdb.Error; err != nil {
-		log.Printf("err:%s", err.Error())
+		log.Printf("err:%s\n", err.Error())
 		return
 	}
 	db.DBv2Commit()
